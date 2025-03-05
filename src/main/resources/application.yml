@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: ryan
+  cloud:
+    nacos:
+      discovery:
+#        register-enabled: true
+        server-addr: 47.96.164.27:8848
+#        namespace: public
+#        group: DEFAULT_GROUP
+        namespace: dev
+        group: test
+        username: ${spring.cloud.nacos.username:nacos}
+        password: ${spring.cloud.nacos.password:nacos}
+      config:
+        server-addr: 47.96.164.27:8848
+        namespace: dev
+        group: test
+        username: ${spring.cloud.nacos.username:nacos}
+        password: ${spring.cloud.nacos.password:nacos}
+#        file-extension: yaml
+
