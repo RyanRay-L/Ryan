@@ -2,7 +2,7 @@ spring:
   cloud:
     nacos:
       discovery:
-#        register-enabled: true
+        #register-enabled: false # 默认开启，不需要注册到Nacos注册中心则设为false。
         server-addr: 47.96.164.27:8848
         namespace: dd310b39-3e07-460b-997d-f760412c5ce5
         group: dev
@@ -10,14 +10,14 @@ spring:
         password: ${spring.cloud.nacos.password:nacos}
 #        secret-key: SecretKey01234567890123456789012345345678999987654901234567890123456789
       config:
+        name: ryan-dev
         server-addr: ${spring.cloud.nacos.discovery.server-addr:47.96.164.27:8848}
-        namespace: dd310b39-3e07-460b-997d-f760412c5ce5
-        group: DEFAULT_GROUP
-        username: ${spring.cloud.nacos.discovery.username}
-        password: ${spring.cloud.nacos.discovery.password}
-#        secret-key: SecretKey01234567890123456789012345345678999987654901234567890123456789
+#        namespace: dd310b39-3e07-460b-997d-f760412c5ce5
+#        data-id: demo-config
+        group: dev
         file-extension: yaml
-        refresh-enabled: true #动态刷新。
+#        file-extension: properties
+#        refresh-enabled: true #动态刷新。
 
   datasource:
     url: jdbc:mysql://47.96.164.27:3306/ryan?useSSL=false&serverTimezone=UTC
