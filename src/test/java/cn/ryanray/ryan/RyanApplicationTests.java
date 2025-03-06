@@ -1,4 +1,4 @@
-package org.example.ryan;
+package cn.ryanray.ryan;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

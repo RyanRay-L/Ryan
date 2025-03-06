@@ -1,0 +1,88 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+#        register-enabled: true
+        server-addr: 47.96.164.27:8848
+        namespace: dd310b39-3e07-460b-997d-f760412c5ce5
+        group: dev
+        username: ${spring.cloud.nacos.username:nacos}
+        password: ${spring.cloud.nacos.password:nacos}
+#        secret-key: SecretKey01234567890123456789012345345678999987654901234567890123456789
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr:47.96.164.27:8848}
+        namespace: dd310b39-3e07-460b-997d-f760412c5ce5
+        group: DEFAULT_GROUP
+        username: ${spring.cloud.nacos.discovery.username}
+        password: ${spring.cloud.nacos.discovery.password}
+#        secret-key: SecretKey01234567890123456789012345345678999987654901234567890123456789
+        file-extension: yaml
+        refresh-enabled: true #动态刷新。
+
+  datasource:
+    url: jdbc:mysql://47.96.164.27:3306/ryan?useSSL=false&serverTimezone=UTC
+    username: ryan
+    password: RyanRay
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:  # 连接池
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 启动druid监控
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: admin
+        login-password: admin
+      # 启用 Druid Web 监控过滤器
+      web-stat-filter:
+        enabled: true
+      url-pattern: /*
+#      exclusions: *.js, *.gif, *.jpg,*.png,*.css,*.ico,/druid/*
+  jpa:
+#    entity-scan:
+#      packages: cn.ryanray.ryan.dao.po
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+  data:
+    redis:
+      host: 47.96.164.27
+      port: 6379
+      password: RyanRay_redis
+      database: 0
+      timeout: 2000
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1
+
+logging:
+  level:
+    com.alibaba.nacos: DEBUG
+    com.mysql: DEBUG
+    org.hibernate.sql: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+
+## Nacos 会定期检查注册服务的健康状态。确保 Spring Boot 服务的健康检查接口正常工作。如果检查不通过，也不会注册到Nacos的注册中心。
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+knife4j:
+  enable: true  # 生产环境中禁用，避免暴露API文档。
